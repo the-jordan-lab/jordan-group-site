@@ -1,0 +1,291 @@
+/* Additional styles for FSU branding and academic context */
+:root {
+  --fsu-garnet: #782F40;
+  --fsu-gold: #CEB888;
+  --background-color: #000000;
+  --text-color: #FFFFFF;
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --button-bg: #333333;
+  --button-hover-bg: #444444;
+  --sidebar-width: 220px;
+  --accent-color: var(--fsu-garnet);
+}
+
+/* Override logo for FSU Lab */
+.logo svg path {
+  fill: var(--fsu-gold);
+}
+
+/* Custom styles for academic content */
+.academic-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.academic-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--fsu-gold);
+}
+
+.academic-header p {
+  font-size: 1.25rem;
+  color: var(--secondary-text-color);
+}
+
+/* Research publications styling */
+.publication-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.publication-card:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.publication-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.publication-card .authors {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+  margin-bottom: 0.5rem;
+}
+
+.publication-card .journal {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.publication-card .abstract {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  color: var(--secondary-text-color);
+}
+
+.publication-card .links {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.publication-card .links a {
+  color: var(--fsu-gold);
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+/* Team member cards */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.team-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-card .member-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.team-card .member-info {
+  padding: 1.5rem;
+}
+
+.team-card .member-name {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.team-card .member-role {
+  font-size: 0.9rem;
+  color: var(--fsu-gold);
+  margin-bottom: 1rem;
+}
+
+.team-card .member-bio {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+/* Lab resources section */
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.resource-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+}
+
+.resource-card .resource-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--fsu-gold);
+}
+
+.resource-card .resource-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.resource-card .resource-description {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+/* RAG chat interface customization */
+.chat-interface {
+  background-color: var(--background-color);
+}
+
+.chat-input {
+  border: 1px solid var(--fsu-garnet);
+}
+
+.chat-action-button {
+  background-color: var(--fsu-garnet);
+}
+
+.chat-action-button:hover {
+  background-color: #8a3a4c; /* Slightly lighter garnet */
+}
+
+/* Custom button styling */
+.fsu-button {
+  background-color: var(--fsu-garnet);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.fsu-button:hover {
+  background-color: #8a3a4c; /* Slightly lighter garnet */
+}
+
+.fsu-button.secondary {
+  background-color: transparent;
+  border: 1px solid var(--fsu-garnet);
+}
+
+.fsu-button.secondary:hover {
+  background-color: rgba(120, 47, 64, 0.1);
+}
+
+/* Knowledge base section */
+.knowledge-base {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.knowledge-base h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  color: var(--fsu-gold);
+}
+
+.knowledge-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.knowledge-category {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 1rem;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.knowledge-category:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.knowledge-category h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.knowledge-category p {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+/* Chat history styling */
+.chat-history {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.chat-message {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.chat-message.user {
+  background-color: rgba(120, 47, 64, 0.3);
+  margin-left: 2rem;
+}
+
+.chat-message.bot {
+  background-color: rgba(206, 184, 136, 0.1);
+  margin-right: 2rem;
+}
+
+.chat-message .sources {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+}
+
+.chat-message .sources h4 {
+  margin-bottom: 0.5rem;
+  color: var(--fsu-gold);
+}
+
+.chat-message .sources ul {
+  padding-left: 1.5rem;
+}
+
+.chat-message .sources li {
+  margin-bottom: 0.5rem;
+}

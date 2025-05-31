@@ -1,0 +1,193 @@
+/* Additional styles to match OpenAI's exact design */
+:root {
+  --background-color: #000000;
+  --text-color: #FFFFFF;
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --button-bg: #2D2D2D;
+  --button-hover-bg: #3D3D3D;
+  --sidebar-width: 220px;
+}
+
+/* Exact OpenAI card styling */
+.card-image {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Gradient backgrounds matching OpenAI's exact colors */
+.gradient-1 {
+  background: linear-gradient(135deg, #E1F5C4, #C8E6C9);
+}
+
+.gradient-2 {
+  background: linear-gradient(135deg, #A1C4FD, #C2E9FB);
+}
+
+.gradient-3 {
+  background: linear-gradient(135deg, #0F5BB8, #25A9E0);
+}
+
+.gradient-4 {
+  background: linear-gradient(135deg, #F3E7D3, #E0C9A6);
+}
+
+.gradient-5 {
+  background: linear-gradient(135deg, #66D37E, #54C7EC);
+}
+
+.gradient-6 {
+  background: linear-gradient(135deg, #A1C4FD, #C2E9FB);
+}
+
+/* Exact OpenAI logo styling */
+.logo svg {
+  width: 36px;
+  height: 36px;
+}
+
+/* Exact OpenAI header spacing */
+.header {
+  padding: 0 24px;
+  height: 72px;
+}
+
+/* Exact OpenAI sidebar styling */
+.sidebar {
+  top: 72px;
+  height: calc(100vh - 72px);
+  padding: 24px 0;
+}
+
+.sidebar-nav a {
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Exact OpenAI card content styling */
+.card-content {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.card-meta {
+  font-size: 14px;
+}
+
+/* Exact OpenAI section header styling */
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+/* Exact OpenAI floating chat button */
+.chat-button {
+  padding: 10px 16px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Exact OpenAI chat interface styling */
+.chat-interface {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input {
+  border-radius: 24px;
+  padding: 16px 24px;
+  font-size: 16px;
+}
+
+.chat-action-button {
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Exact OpenAI footer styling */
+.footer {
+  padding: 48px 24px;
+}
+
+.footer-section h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  font-size: 14px;
+}
+
+/* Exact OpenAI spacing between sections */
+.card-section {
+  margin-bottom: 64px;
+}
+
+.featured-cards {
+  margin-bottom: 64px;
+}
+
+/* Exact OpenAI card hover effects */
+.card:hover, .featured-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
+}
+
+/* Exact OpenAI button hover effects */
+.login-button:hover, .chat-button:hover, .chat-action-button:hover {
+  background-color: var(--button-hover-bg);
+  transition: background-color 0.2s ease;
+}
+
+/* Exact OpenAI link hover effects */
+a:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+/* Exact OpenAI responsive breakpoints */
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .featured-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Exact OpenAI animation for chat button */
+.chat-button {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
