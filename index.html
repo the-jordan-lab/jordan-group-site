@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>James M. Jordan Lab | FSU Biological Science</title>
+    <title>Jordan Group | FSU Biological Science</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/academic.css">
-    <link rel="stylesheet" href="css/pixel-perfect.css">
-    <link rel="stylesheet" href="css/updated-design.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/minimalist.css">
+    <link rel="stylesheet" href="css/responsive-minimal.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="logo">
             <a href="/">
-                <img src="assets/images/jordan_lab_logo.png" alt="Jordan Lab Logo" width="36" height="36">
+                <img src="assets/logos/jordan_group_logo.png" alt="Jordan Group Logo" width="36" height="36">
             </a>
         </div>
         <div class="toggle-icon">
-            <button>
+            <button aria-label="Toggle navigation">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="4" y="6" width="16" height="2" rx="1" fill="white"/>
                     <rect x="4" y="11" width="16" height="2" rx="1" fill="white"/>
@@ -28,7 +27,7 @@
             </button>
         </div>
         <div class="header-right">
-            <button class="login-button">Log in</button>
+            <span class="login-button">Log in</span>
         </div>
     </header>
 
@@ -37,15 +36,15 @@
         <aside class="sidebar">
             <nav>
                 <ul class="sidebar-nav">
-                    <li><a href="#">Research</a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">Team</a></li>
-                    <li><a href="#">Methods</a></li>
-                    <li><a href="#">Resources</a></li>
-                    <li><a href="#">Collaborations</a></li>
-                    <li><a href="#">Teaching</a></li>
-                    <li><a href="#">Join Our Lab</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#methods">Methods</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#collaborations">Collaborations</a></li>
+                    <li><a href="#teaching">Teaching</a></li>
+                    <li><a href="#join">Join Our Lab</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </aside>
@@ -55,188 +54,115 @@
             <!-- Chat Interface at Top -->
             <section class="top-chat-interface">
                 <div class="chat-header">
-                    <h2>Welcome to the Jordan Lab</h2>
+                    <h2 class="gradient-text">Welcome to the Jordan Group</h2>
                     <p>Ask me anything about our research, publications, or resources</p>
                 </div>
                 <div class="chat-input-container">
-                    <input type="text" class="chat-input" placeholder="What can I help you with?">
-                </div>
-                <div class="chat-actions">
-                    <button class="chat-action-button">Research Areas</button>
-                    <button class="chat-action-button">Publications</button>
-                    <button class="chat-action-button">Team Members</button>
-                    <button class="chat-action-button">Methods</button>
-                    <button class="chat-action-button">Resources</button>
+                    <input type="text" class="chat-input" placeholder="What can I help you with?" aria-label="Chat input">
                 </div>
             </section>
             
-            <!-- Featured Cards -->
-            <section class="featured-cards">
-                <div class="featured-card">
-                    <div class="card-image gradient-1"></div>
-                    <div class="card-content">
-                        <h2 class="card-title">Molecular Mechanisms of Cellular Adaptation</h2>
-                        <div class="card-meta">
-                            <span>Research Focus</span>
-                            <span>May 2025</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="featured-card">
-                    <div class="card-image gradient-2"></div>
-                    <div class="card-content">
-                        <h2 class="card-title">Evolutionary Dynamics in Microbial Communities</h2>
-                        <div class="card-meta">
-                            <span>Research Focus</span>
-                            <span>April 2025</span>
-                        </div>
-                    </div>
+            <!-- Hero Section -->
+            <section class="hero dark-bg">
+                <div class="container center">
+                    <h1 class="gradient-text">Where Genomes Meet Algorithms</h1>
+                    <p class="lead">
+                        The <strong>Jordan Group</strong> fuses high-throughput molecular biology with
+                        deep-learning models to decode—and re-engineer—cellular metabolism.
+                    </p>
                 </div>
             </section>
 
-            <!-- Research Areas -->
-            <section class="card-section">
-                <div class="section-header">
-                    <h2 class="section-title">Research Areas</h2>
-                    <a href="#" class="view-all">View all</a>
-                </div>
-                <div class="card-grid">
-                    <div class="card">
-                        <div class="card-image gradient-3"></div>
-                        <div class="card-content">
-                            <h3 class="card-title">Genomic Analysis of Adaptation Mechanisms</h3>
-                            <div class="card-meta">
-                                <span>Molecular Biology</span>
-                            </div>
-                        </div>
+            <!-- 3-UP VALUE PROP BLOCK -->
+            <section class="content-grid">
+                <article class="card">
+                    <h3 class="gradient-underline">Integrative Omics</h3>
+                    <p>We layer bulk &amp; single-cell RNA-seq, ATAC-seq, ChIP-seq, and spatial proteomics to build a
+                    multi-resolution map of metabolic regulation.</p>
+                </article>
+                <article class="card">
+                    <h3 class="gradient-underline">AI-Driven Structure &amp; Dynamics</h3>
+                    <p>Custom AlphaFold-Multimer + MD pipelines predict how
+                    protonation-sensitive histidine networks reshape protein interfaces.</p>
+                </article>
+                <article class="card">
+                    <h3 class="gradient-underline">Translational Systems Biology</h3>
+                    <p>From <em>in silico</em> design to CRISPR screens and live-cell metabolic
+                    analyzers, we close the loop between computation and bench.</p>
+                </article>
+            </section>
+
+            <!-- FEATURE STRIP WITH IMAGE -->
+            <section class="feature dark-bg">
+                <div class="container split">
+                    <div class="text">
+                        <h2 class="gradient-text">A Single Pipeline, End-to-End</h2>
+                        <p>
+                            Our cloud-native stack ingests raw reads, trains graph neural networks,
+                            and pushes insights straight to automated wet-lab protocols—no copy-pasting
+                            required.
+                        </p>
+                        <ul>
+                            <li><strong>Neural LLM Agents</strong> orchestrate QC &amp; analysis</li>
+                            <li><strong>Blackwell-class GPUs</strong> render protein movies in minutes</li>
+                            <li><strong>Slack/Notion bridges</strong> keep the whole lab in sync</li>
+                        </ul>
                     </div>
-                    <div class="card">
-                        <div class="card-image gradient-4"></div>
-                        <div class="card-content">
-                            <h3 class="card-title">Computational Models of Evolutionary Processes</h3>
-                            <div class="card-meta">
-                                <span>Computational Biology</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-image gradient-5"></div>
-                        <div class="card-content">
-                            <h3 class="card-title">Novel Methodologies for Biological Applications</h3>
-                            <div class="card-meta">
-                                <span>Methods Development</span>
-                            </div>
-                        </div>
-                    </div>
+                    <figure class="mockup">
+                        <img src="assets/logos/jordan_group_logo.png" alt="Jordan Group workflow illustration">
+                    </figure>
                 </div>
             </section>
 
-            <!-- Recent Publications -->
-            <section class="card-section">
-                <div class="section-header">
-                    <h2 class="section-title">Recent Publications</h2>
-                    <a href="#" class="view-all">View all</a>
-                </div>
-                <div class="publication-card">
-                    <h3>Genomic signatures of adaptation in response to environmental stressors</h3>
-                    <div class="authors">Jordan JM, Smith A, Garcia R, Williams T</div>
-                    <div class="journal">Journal of Molecular Biology (2025), 42(3): 156-172</div>
-                    <div class="abstract">
-                        This study identifies key genomic signatures associated with adaptation to various environmental stressors in model organisms, providing insights into evolutionary mechanisms.
-                    </div>
-                    <div class="links">
-                        <a href="#">Full Text</a>
-                        <a href="#">PDF</a>
-                        <a href="#">Supplementary Data</a>
-                    </div>
-                </div>
-                <div class="publication-card">
-                    <h3>Computational framework for predicting evolutionary trajectories in microbial communities</h3>
-                    <div class="authors">Chen L, Jordan JM, Thompson K, Davis P</div>
-                    <div class="journal">Bioinformatics (2024), 38(5): 423-435</div>
-                    <div class="abstract">
-                        We present a novel computational framework that integrates genomic data with environmental parameters to predict evolutionary trajectories in complex microbial communities.
-                    </div>
-                    <div class="links">
-                        <a href="#">Full Text</a>
-                        <a href="#">PDF</a>
-                        <a href="#">GitHub Repository</a>
-                    </div>
+            <!-- SELECTED PROJECTS (CARDS) -->
+            <section id="research" class="content-grid alt">
+                <header>
+                    <h2 class="gradient-text">Current Focus Areas</h2>
+                </header>
+
+                <article class="card">
+                    <h4 class="subtitle">Histidine-Rich Interfaces as pH Switches</h4>
+                    <p>We test the idea that histidine clusters act as metabolic rheostats,
+                    tuning mitochondrial calcium uniporter activity in response to nutrient flux.</p>
+                </article>
+
+                <article class="card">
+                    <h4 class="subtitle">Chromatin Remodeling by Pioneer Factors</h4>
+                    <p>Combining Cut&amp;Tag-seq with AlphaFold 3 molecular movies to watch cBAF
+                    pry open "closed" chromatin and license Pol II recruitment.</p>
+                </article>
+
+                <article class="card">
+                    <h4 class="subtitle">AI-Optimized Therapeutic Targets</h4>
+                    <p>A multimodal GNN prioritizes gene–drug pairs that reverse steatotic
+                    signatures in hepatocytes—validated in siRNA mini-screens.</p>
+                </article>
+            </section>
+
+            <!-- Team Section -->
+            <section id="team" class="team-strip dark-bg">
+                <h2 class="gradient-text center">Meet the Crew</h2>
+                <p class="center">
+                    From gene jockeys to GPU whisperers, we're assembling a cross-disciplinary
+                    squad to tackle the next decade of metabolic disease biology.
+                </p>
+                <div class="avatar-row">
+                    <figure>
+                        <div class="avatar-placeholder gradient-1"></div>
+                        <figcaption>James M. Jordan, PhD<br><span>PI / Metabolic Systems</span></figcaption>
+                    </figure>
+                    <figure>
+                        <div class="avatar-placeholder gradient-2"></div>
+                        <figcaption>Amanda Chen, PhD<br><span>Computational Biology</span></figcaption>
+                    </figure>
                 </div>
             </section>
 
-            <!-- Team Members -->
-            <section class="card-section">
-                <div class="section-header">
-                    <h2 class="section-title">Our Team</h2>
-                    <a href="#" class="view-all">View all</a>
-                </div>
-                <div class="team-grid">
-                    <div class="team-card">
-                        <div class="member-image gradient-1"></div>
-                        <div class="member-info">
-                            <h3 class="member-name">Dr. James M. Jordan</h3>
-                            <div class="member-role">Principal Investigator</div>
-                            <div class="member-bio">
-                                Ph.D. in Biological Science, specializing in molecular mechanisms and evolutionary dynamics.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="member-image gradient-2"></div>
-                        <div class="member-info">
-                            <h3 class="member-name">Dr. Amanda Chen</h3>
-                            <div class="member-role">Research Scientist</div>
-                            <div class="member-bio">
-                                Expertise in computational biology and genomic analysis.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="member-image gradient-3"></div>
-                        <div class="member-info">
-                            <h3 class="member-name">Michael Rodriguez</h3>
-                            <div class="member-role">Ph.D. Candidate</div>
-                            <div class="member-bio">
-                                Researching evolutionary adaptations in microbial systems.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="member-image gradient-4"></div>
-                        <div class="member-info">
-                            <h3 class="member-name">Sarah Johnson</h3>
-                            <div class="member-role">Lab Manager</div>
-                            <div class="member-bio">
-                                Coordinates research activities and manages laboratory resources.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Knowledge Base -->
-            <section class="knowledge-base">
-                <h2>Lab Knowledge Base</h2>
-                <div class="knowledge-categories">
-                    <div class="knowledge-category">
-                        <h3>Research Protocols</h3>
-                        <p>Standard operating procedures and experimental protocols</p>
-                    </div>
-                    <div class="knowledge-category">
-                        <h3>Data Analysis</h3>
-                        <p>Statistical methods and computational workflows</p>
-                    </div>
-                    <div class="knowledge-category">
-                        <h3>Equipment</h3>
-                        <p>Laboratory equipment specifications and usage guides</p>
-                    </div>
-                    <div class="knowledge-category">
-                        <h3>Publications</h3>
-                        <p>Published papers and supplementary materials</p>
-                    </div>
-                </div>
-                <p>Use the chat interface to query our lab's knowledge base for information about our research, methods, and resources.</p>
+            <!-- Call to Action -->
+            <section class="cta center">
+                <h2 class="gradient-text">Build the Future of <span style="white-space:nowrap;">AI-First Biology</span></h2>
+                <p class="lead">We're recruiting postdocs, graduate students, and
+                fearless undergrads. Got the curiosity gene?</p>
             </section>
         </main>
     </div>
@@ -247,8 +173,8 @@
             <div class="footer-section">
                 <h3>Our Research</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Research Areas</a></li>
-                    <li><a href="#">Publications</a></li>
+                    <li><a href="#research">Research Areas</a></li>
+                    <li><a href="#publications">Publications</a></li>
                     <li><a href="#">Ongoing Projects</a></li>
                 </ul>
             </div>
@@ -258,13 +184,12 @@
                     <li><a href="#">Protocols</a></li>
                     <li><a href="#">Datasets</a></li>
                     <li><a href="#">Software</a></li>
-                    <li><a href="#">Equipment</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>For Students</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Join the Lab</a></li>
+                    <li><a href="#join">Join the Lab</a></li>
                     <li><a href="#">Current Opportunities</a></li>
                     <li><a href="#">Courses</a></li>
                 </ul>
@@ -272,42 +197,14 @@
             <div class="footer-section">
                 <h3>Contact</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Location</a></li>
+                    <li><a href="#contact">Location</a></li>
                     <li><a href="#">Email</a></li>
-                    <li><a href="#">Phone</a></li>
                     <li><a href="#">Social Media</a></li>
                 </ul>
             </div>
         </div>
     </footer>
 
-    <!-- Minimalist ChatGPT floating button (appears on scroll) -->
-    <button class="minimalist-chat-button">
-        <span>Ask Lab Assistant</span>
-        <span class="arrow-icon">↑</span>
-    </button>
-
-    <!-- Minimalist ChatGPT interface (appears on scroll) -->
-    <div class="minimalist-chat-interface">
-        <div class="chat-header">
-            <h2>What can I help you with?</h2>
-        </div>
-        <div class="chat-input-container">
-            <div class="chat-history">
-                <!-- Chat messages will appear here -->
-            </div>
-            <input type="text" class="chat-input" placeholder="Ask about our research, publications, or resources...">
-            <div class="chat-actions">
-                <button class="chat-action-button">Research Areas</button>
-                <button class="chat-action-button">Publications</button>
-                <button class="chat-action-button">Team Members</button>
-                <button class="chat-action-button">Methods</button>
-                <button class="chat-action-button">Resources</button>
-            </div>
-        </div>
-    </div>
-
     <script src="js/main.js"></script>
-    <script src="js/rag.js"></script>
 </body>
 </html>

@@ -1,0 +1,478 @@
+/* Minimalist styles - removing all non-essential UI elements */
+:root {
+  --background-color: #000000;
+  --text-color: #FFFFFF;
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --brand-grad: linear-gradient(90deg, #0486ff 0%, #bf00ff 100%);
+  --font-family: "Inter", "Helvetica Neue", sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Ultra-minimal header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Logo styling */
+.logo img {
+  width: 36px;
+  height: 36px;
+  transition: opacity 0.2s ease;
+}
+
+.logo img:hover {
+  opacity: 0.9;
+}
+
+/* Remove all button styling, make them look like text */
+button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Login text instead of button */
+.login-button {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+/* Minimalist toggle icon */
+.toggle-icon svg {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.toggle-icon button:hover svg {
+  opacity: 1;
+}
+
+/* Gradient text utilities */
+.gradient-text {
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-underline {
+  display: inline-block;
+  position: relative;
+}
+
+.gradient-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 2px;
+  background: var(--brand-grad);
+}
+
+/* Minimalist chat interface */
+.top-chat-interface {
+  margin: 0 auto 6rem;
+  text-align: center;
+  padding-top: 120px;
+}
+
+.top-chat-interface .chat-header {
+  margin-bottom: 2rem;
+}
+
+.top-chat-interface .chat-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.top-chat-interface .chat-header p {
+  font-size: 1.25rem;
+  color: var(--secondary-text-color);
+  margin-bottom: 2rem;
+}
+
+.top-chat-interface .chat-input-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.top-chat-interface .chat-input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 1.25rem 1.5rem;
+  color: var(--text-color);
+  font-size: 1.25rem;
+  outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.top-chat-interface .chat-input:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.top-chat-interface .chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Minimalist content cards */
+.card {
+  background: #111;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: transform 250ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Content grid layout */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 6rem 0;
+}
+
+/* Dark background sections */
+.dark-bg {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Center alignment utility */
+.center {
+  text-align: center;
+}
+
+/* Container width control */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Split container for feature sections */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Minimalist sidebar */
+.sidebar {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 0;
+  height: calc(100vh - 72px);
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  box-shadow: none;
+  padding: 24px 0;
+}
+
+.sidebar.active {
+  width: 220px;
+}
+
+.sidebar-nav {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar.active .sidebar-nav {
+  opacity: 1;
+}
+
+/* Minimalist navigation */
+.sidebar-nav a {
+  display: block;
+  padding: 8px 24px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  opacity: 0.8;
+}
+
+/* Main content - no shifting when sidebar opens */
+.main-content {
+  margin-left: 0;
+  width: 100%;
+  transition: none;
+}
+
+/* Hero section */
+.hero {
+  padding: 6rem 0;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.hero .lead {
+  font-size: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--secondary-text-color);
+}
+
+/* Feature section */
+.feature {
+  padding: 6rem 0;
+}
+
+.feature h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.feature p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: var(--secondary-text-color);
+}
+
+.feature ul {
+  padding-left: 1.5rem;
+}
+
+.feature li {
+  margin-bottom: 0.75rem;
+  color: var(--secondary-text-color);
+}
+
+.mockup img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Team section */
+.team-strip {
+  padding: 6rem 0;
+}
+
+.team-strip h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.team-strip p {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  color: var(--secondary-text-color);
+}
+
+.avatar-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.avatar-row figure {
+  text-align: center;
+  margin: 0;
+}
+
+.avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.gradient-1 {
+  background: linear-gradient(135deg, #0486ff 0%, #bf00ff 100%);
+}
+
+.gradient-2 {
+  background: linear-gradient(135deg, #bf00ff 0%, #0486ff 100%);
+}
+
+figcaption {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+figcaption span {
+  font-size: 0.875rem;
+  color: var(--secondary-text-color);
+}
+
+/* CTA section */
+.cta {
+  padding: 6rem 0;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.cta .lead {
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--secondary-text-color);
+}
+
+/* Footer */
+.footer {
+  padding: 4rem 2rem;
+  background-color: #111;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: var(--secondary-text-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--text-color);
+}
+
+/* Minimalist scroll to top button - only appears when needed */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+  z-index: 1000;
+}
+
+.scroll-to-top.visible {
+  opacity: 0.5;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .top-chat-interface {
+    padding-top: 100px;
+  }
+  
+  .top-chat-interface .chat-header h2 {
+    font-size: 2rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero .lead {
+    font-size: 1.25rem;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature h2, .team-strip h2, .cta h2 {
+    font-size: 2rem;
+  }
+}

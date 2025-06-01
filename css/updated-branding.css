@@ -1,0 +1,229 @@
+/* Updated branding and minimalist styles */
+:root {
+  --background-color: #000000;
+  --text-color: #FFFFFF;
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --brand-grad: linear-gradient(90deg, #0486ff 0%, #bf00ff 100%);
+  --font-family: "Inter", "Helvetica Neue", sans-serif;
+}
+
+/* Logo styling */
+.logo img {
+  width: 36px;
+  height: 36px;
+  transition: opacity 0.2s ease;
+}
+
+.logo img:hover {
+  opacity: 0.9;
+}
+
+/* Gradient text utilities */
+.gradient-text {
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-underline {
+  display: inline-block;
+  position: relative;
+}
+
+.gradient-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  width: 100%;
+  height: 2px;
+  background: var(--brand-grad);
+}
+
+/* Minimalist chat interface */
+.top-chat-interface {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.top-chat-interface .chat-header {
+  margin-bottom: 2rem;
+}
+
+.top-chat-interface .chat-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.top-chat-interface .chat-header p {
+  font-size: 1.25rem;
+  color: var(--secondary-text-color);
+}
+
+.top-chat-interface .chat-input-container {
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+
+.top-chat-interface .chat-input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 1.25rem 1.5rem;
+  color: var(--text-color);
+  font-size: 1.25rem;
+}
+
+/* Minimalist content cards */
+.card {
+  background: #111;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: transform 250ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Content grid layout */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+/* Dark background sections */
+.dark-bg {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Center alignment utility */
+.center {
+  text-align: center;
+}
+
+/* Container width control */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Split container for feature sections */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Minimalist sidebar */
+.sidebar {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 0;
+  height: calc(100vh - 72px);
+  background-color: var(--background-color);
+  z-index: 1000;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  box-shadow: none;
+  padding: 24px 0;
+}
+
+.sidebar.active {
+  width: 220px;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-nav {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.sidebar.active .sidebar-nav {
+  opacity: 1;
+}
+
+/* Minimalist navigation */
+.sidebar-nav a {
+  display: block;
+  padding: 8px 24px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  opacity: 0.8;
+}
+
+/* Scroll to top button (minimalist) */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+  z-index: 1000;
+}
+
+.scroll-to-top.visible {
+  opacity: 0.5;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Main content - no shifting when sidebar opens */
+.main-content {
+  margin-left: 0;
+  width: 100%;
+  padding: 120px 2rem 6rem;
+  transition: none;
+}
+
+/* Footer adjustments */
+.footer {
+  margin-left: 0;
+  padding: 4rem 2rem;
+  background-color: #111;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .top-chat-interface .chat-header h2 {
+    font-size: 2rem;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}

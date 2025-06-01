@@ -1,10 +1,10 @@
-// Updated main JavaScript for Jordan Lab website
-
+// Updated main JavaScript for Jordan Group website
 document.addEventListener('DOMContentLoaded', function() {
-    // Toggle sidebar on mobile - overlay without shifting content
+    const topChatInput = document.querySelector('.top-chat-interface .chat-input');
+    
+    // Toggle sidebar
     const toggleButton = document.querySelector('.toggle-icon button');
     const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
     
     if (toggleButton && sidebar) {
         toggleButton.addEventListener('click', function() {
@@ -21,119 +21,128 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Minimalist chat button that appears on scroll
-    const minimalistChatButton = document.querySelector('.minimalist-chat-button');
-    const minimalistChatInterface = document.querySelector('.minimalist-chat-interface');
-    const topChatInput = document.querySelector('.top-chat-interface .chat-input');
-    
-    // Show minimalist chat button when scrolling down
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Show button when scrolling down past the top chat interface
-        if (scrollTop > 400) {
-            minimalistChatButton.classList.add('visible');
-        } else {
-            minimalistChatButton.classList.remove('visible');
-            // Also close the chat interface if it's open
-            if (minimalistChatInterface.classList.contains('active')) {
-                minimalistChatInterface.classList.remove('active');
-                minimalistChatButton.querySelector('.arrow-icon').textContent = '↑';
-            }
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-    
-    // Toggle minimalist chat interface
-    if (minimalistChatButton && minimalistChatInterface) {
-        minimalistChatButton.addEventListener('click', function() {
-            minimalistChatInterface.classList.toggle('active');
-            
-            // Change arrow direction
-            const arrowIcon = minimalistChatButton.querySelector('.arrow-icon');
-            if (minimalistChatInterface.classList.contains('active')) {
-                arrowIcon.textContent = '↓';
-            } else {
-                arrowIcon.textContent = '↑';
-            }
-        });
-    }
-    
-    // Handle chat input in top interface
+    // Handle chat input
     if (topChatInput) {
         topChatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter' && topChatInput.value.trim() !== '') {
-                handleUserQuery(topChatInput.value.trim());
+                // Simulate chat response
+                console.log(`Query: "${topChatInput.value}" would be processed by the RAG system`);
+                
+                // Create a simple response display
+                const responseContainer = document.createElement('div');
+                responseContainer.className = 'chat-response';
+                responseContainer.innerHTML = `
+                    <p class="user-query">You asked: ${topChatInput.value}</p>
+                    <p class="ai-response">This would be answered by the RAG system, pulling information from the Jordan Lab's knowledge base.</p>
+                `;
+                
+                // Insert after chat input
+                const chatContainer = document.querySelector('.chat-input-container');
+                chatContainer.parentNode.insertBefore(responseContainer, chatContainer.nextSibling);
+                
+                // Clear input
                 topChatInput.value = '';
+                
+                // Remove response after 5 seconds
+                setTimeout(() => {
+                    responseContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        responseContainer.remove();
+                    }, 500);
+                }, 5000);
             }
         });
-    }
-    
-    // Handle chat action buttons in top interface
-    const topChatActionButtons = document.querySelectorAll('.top-chat-interface .chat-action-button');
-    if (topChatActionButtons) {
-        topChatActionButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const query = `Tell me about ${button.textContent}`;
-                topChatInput.value = query;
-                handleUserQuery(query);
-                topChatInput.value = '';
-            });
-        });
-    }
-    
-    // Function to handle user queries (shared between both chat interfaces)
-    function handleUserQuery(query) {
-        console.log('Query received:', query);
-        // This would be replaced with actual RAG functionality
-        // For now, just log the query
         
-        // Show a response in a modal or alert for demonstration
-        alert(`Your query: "${query}" would be processed by the RAG system, retrieving information from the lab's knowledge base.`);
+        // Auto-focus chat input when page loads
+        setTimeout(() => {
+            topChatInput.focus();
+        }, 1000);
     }
     
-    // Add smooth scrolling for all links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    // Make all navigation and content links scroll to top and focus chat
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
             
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+            // Extract section name from href
+            const section = this.getAttribute('href').replace('#', '');
+            const linkText = this.textContent.trim();
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Focus chat input and pre-fill with section query
+            setTimeout(function() {
+                topChatInput.focus();
+                topChatInput.value = `Tell me about ${linkText || section}`;
+            }, 800);
+            
+            // Close sidebar if open
+            if (sidebar && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
             }
         });
     });
     
-    // Add gradient animations for cards
-    const cards = document.querySelectorAll('.card-image');
-    cards.forEach(card => {
-        if (card.classList.contains('gradient-1') || 
-            card.classList.contains('gradient-2') || 
-            card.classList.contains('gradient-3') || 
-            card.classList.contains('gradient-4') || 
-            card.classList.contains('gradient-5') || 
-            card.classList.contains('gradient-6')) {
-            
-            // Add subtle animation to gradients
-            card.style.backgroundSize = '200% 200%';
-            card.style.animation = 'gradient-animation 15s ease infinite';
+    // Handle scroll events for minimalist UI
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const header = document.querySelector('.header');
+        
+        // Add subtle transparency to header on scroll
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
+        
+        // Show/hide chat input based on scroll direction
+        if (scrollTop > lastScrollTop && scrollTop > 300) {
+            // Scrolling down - minimize chat
+            document.body.classList.add('chat-minimized');
+        } else {
+            // Scrolling up - show chat
+            document.body.classList.remove('chat-minimized');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
     
-    // Add CSS for gradient animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    // Add a minimalist "Ask Jordan Lab" button that appears when scrolled down
+    const askButton = document.createElement('button');
+    askButton.className = 'ask-button';
+    askButton.innerHTML = `
+        <span>Ask Jordan Lab</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 15L12 8L19 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     `;
-    document.head.appendChild(style);
+    document.body.appendChild(askButton);
+    
+    // Make the ask button scroll to top and focus chat
+    askButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        setTimeout(function() {
+            topChatInput.focus();
+        }, 800);
+    });
+    
+    // Show/hide ask button based on scroll position
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 600) {
+            askButton.classList.add('visible');
+        } else {
+            askButton.classList.remove('visible');
+        }
+    });
 });
