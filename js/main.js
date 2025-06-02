@@ -1,5 +1,7 @@
 // Updated main JavaScript for Jordan Group website
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure chat is always visible
+    document.body.classList.remove('chat-minimized');
     const topChatInput = document.querySelector('.top-chat-interface .chat-input');
     
     // Toggle sidebar
@@ -21,39 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Handle chat input
+    // Just auto-focus chat input when page loads
+    // The RAG system in rag.js will handle the actual chat functionality
     if (topChatInput) {
-        topChatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && topChatInput.value.trim() !== '') {
-                // Simulate chat response
-                console.log(`Query: "${topChatInput.value}" would be processed by the RAG system`);
-                
-                // Create a simple response display
-                const responseContainer = document.createElement('div');
-                responseContainer.className = 'chat-response';
-                responseContainer.innerHTML = `
-                    <p class="user-query">You asked: ${topChatInput.value}</p>
-                    <p class="ai-response">This would be answered by the RAG system, pulling information from the Jordan Lab's knowledge base.</p>
-                `;
-                
-                // Insert after chat input
-                const chatContainer = document.querySelector('.chat-input-container');
-                chatContainer.parentNode.insertBefore(responseContainer, chatContainer.nextSibling);
-                
-                // Clear input
-                topChatInput.value = '';
-                
-                // Remove response after 5 seconds
-                setTimeout(() => {
-                    responseContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        responseContainer.remove();
-                    }, 500);
-                }, 5000);
-            }
-        });
-        
-        // Auto-focus chat input when page loads
         setTimeout(() => {
             topChatInput.focus();
         }, 1000);
@@ -100,14 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('scrolled');
         }
         
-        // Show/hide chat input based on scroll direction
-        if (scrollTop > lastScrollTop && scrollTop > 300) {
-            // Scrolling down - minimize chat
-            document.body.classList.add('chat-minimized');
-        } else {
-            // Scrolling up - show chat
-            document.body.classList.remove('chat-minimized');
-        }
+        // Keep chat always visible - removed auto-hide behavior
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });

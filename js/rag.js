@@ -1,91 +1,151 @@
 // RAG integration for lab website
 // This file handles the RAG (Retrieval Augmented Generation) functionality
-// connecting the chat interface to knowledge sources
+// connecting the chat interface to the backend API
 
 document.addEventListener('DOMContentLoaded', function() {
     // Chat interface elements
-    const chatInterface = document.querySelector('.chat-interface');
+    const chatInterface = document.querySelector('.chatgpt-interface');
     const chatHistory = document.querySelector('.chat-history');
     const chatInput = document.querySelector('.chat-input');
     const chatActionButtons = document.querySelectorAll('.chat-action-button');
+    const sendButton = document.querySelector('.send-button');
+    const suggestedTopics = document.querySelector('.suggested-topics');
+    const chatInputArea = document.querySelector('.chat-input-area');
     
-    // Initialize chat history if empty
-    if (chatHistory && chatHistory.innerHTML.trim() === '') {
-        const welcomeMessage = document.createElement('div');
-        welcomeMessage.className = 'chat-message bot';
-        welcomeMessage.innerHTML = `
-            <p>Welcome to the James M. Jordan Laboratory assistant. I can help you find information about our research, 
-            publications, team members, methods, and resources. What would you like to know?</p>
-        `;
-        chatHistory.appendChild(welcomeMessage);
-    }
+    // API configuration
+    const API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3001' : window.location.origin;
+    
+    // Generate a unique session ID for this conversation
+    const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     
     // Handle chat input submission
     if (chatInput) {
         chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && chatInput.value.trim() !== '') {
-                handleUserQuery(chatInput.value.trim());
-                chatInput.value = '';
+            if (e.key === 'Enter' && !e.shiftKey && chatInput.value.trim() !== '') {
+                e.preventDefault();
+                sendMessage();
             }
         });
+    }
+    
+    // Handle send button
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
+    
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message) {
+            handleUserQuery(message);
+            chatInput.value = '';
+            // Hide suggested topics once conversation starts
+            chatInputArea.classList.add('has-messages');
+        }
     }
     
     // Handle chat action buttons
     if (chatActionButtons) {
         chatActionButtons.forEach(button => {
             button.addEventListener('click', function() {
-                const query = `Tell me about ${button.textContent}`;
-                chatInput.value = query;
+                const query = button.querySelector('span').textContent;
                 handleUserQuery(query);
-                chatInput.value = '';
+                // Hide suggested topics once conversation starts
+                chatInputArea.classList.add('has-messages');
             });
         });
     }
     
     // Function to handle user queries
-    function handleUserQuery(query) {
+    async function handleUserQuery(query) {
         // Add user message to chat history
         addMessageToChat('user', query);
         
         // Show typing indicator
         showTypingIndicator();
         
-        // Call RAG service (mock for now)
-        setTimeout(() => {
+        try {
+            // Call real RAG API
+            const response = await callRagAPI(query);
+            
             // Remove typing indicator
             removeTypingIndicator();
             
-            // Get response from RAG
-            const response = mockRagResponse(query);
+            if (response.success) {
+                // Add bot response to chat history
+                addMessageToChat('bot', response.answer, response.sources);
+            } else {
+                // Handle error response
+                addMessageToChat('bot', response.answer || 'Sorry, I encountered an error. Please try again.', []);
+            }
             
-            // Add bot response to chat history
-            addMessageToChat('bot', response.answer, response.sources);
+        } catch (error) {
+            console.error('Error calling RAG API:', error);
             
-            // Scroll to bottom of chat history
-            scrollChatToBottom();
-        }, 1500); // Simulate processing time
+            // Remove typing indicator
+            removeTypingIndicator();
+            
+            // Add error message
+            addMessageToChat('bot', 'I\'m having trouble connecting to my knowledge base right now. Please try again in a moment, or contact the lab directly for assistance.', []);
+        }
+        
+        // Scroll to bottom of chat history
+        scrollChatToBottom();
+    }
+    
+    // Function to call the RAG API
+    async function callRagAPI(query) {
+        const response = await fetch(`${API_BASE_URL}/api/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                query: query,
+                sessionId: sessionId 
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return await response.json();
     }
     
     // Function to add message to chat history
     function addMessageToChat(type, text, sources = null) {
+        // Hide welcome message when first message is added
+        const welcomeMessage = chatHistory.querySelector('.welcome-message');
+        if (welcomeMessage) {
+            welcomeMessage.style.display = 'none';
+        }
+        
         const messageElement = document.createElement('div');
         messageElement.className = `chat-message ${type}`;
         
-        let messageContent = `<p>${text}</p>`;
+        const messageContent = document.createElement('div');
+        messageContent.className = 'chat-message-content';
         
-        // Add sources if available
-        if (sources && sources.length > 0) {
-            messageContent += `
-                <div class="sources">
-                    <h4>Sources:</h4>
-                    <ul>
-                        ${sources.map(source => `<li>${source.title}</li>`).join('')}
+        let contentHTML = `<p>${text}</p>`;
+        
+        // Add sources if available (only for bot messages)
+        if (type === 'bot' && sources && sources.length > 0) {
+            contentHTML += `
+                <div class="sources" style="margin-top: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 8px;">📚 Sources:</p>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        ${sources.map(source => `
+                            <li style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 4px;">
+                                • ${source.title}
+                            </li>
+                        `).join('')}
                     </ul>
                 </div>
             `;
         }
         
-        messageElement.innerHTML = messageContent;
+        messageContent.innerHTML = contentHTML;
+        messageElement.appendChild(messageContent);
         chatHistory.appendChild(messageElement);
         
         // Scroll to bottom of chat history
@@ -102,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span></span>
                 <span></span>
             </div>
+            <p><small>Searching knowledge base...</small></p>
         `;
         chatHistory.appendChild(typingIndicator);
         scrollChatToBottom();
@@ -120,80 +181,32 @@ document.addEventListener('DOMContentLoaded', function() {
         chatHistory.scrollTop = chatHistory.scrollHeight;
     }
     
-    // Mock RAG response function - this would be replaced with actual API calls
-    function mockRagResponse(query) {
-        query = query.toLowerCase();
-        
-        // Default response
-        let answer = "I don't have specific information about that in my knowledge base. Can you try asking about our research areas, publications, team members, or laboratory resources?";
-        let sources = [];
-        
-        // Research-related queries
-        if (query.includes('research') || query.includes('study') || query.includes('project')) {
-            answer = "The Jordan Laboratory focuses on three main research areas: (1) Molecular Mechanisms of Cellular Adaptation, where we study how cells respond to environmental changes at the molecular level; (2) Evolutionary Dynamics in Microbial Communities, investigating how microbial populations evolve over time; and (3) Novel Methodologies for Biological Applications, developing new techniques for biological research.";
-            sources = [
-                { title: "Research Areas - Jordan Lab Website", url: "#" },
-                { title: "Genomic signatures of adaptation in response to environmental stressors (2025)", url: "#" }
-            ];
+    // Health check on page load
+    async function checkAPIHealth() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/health`);
+            const health = await response.json();
+            
+            console.log('RAG API Health:', health);
+            
+            if (!health.services.notion || !health.services.openai) {
+                console.warn('Some RAG services are not properly configured');
+            }
+        } catch (error) {
+            console.warn('RAG API is not available:', error);
         }
-        
-        // Publication-related queries
-        else if (query.includes('publication') || query.includes('paper') || query.includes('journal')) {
-            answer = "Our lab has published several significant papers in recent years. Our most recent publication is 'Genomic signatures of adaptation in response to environmental stressors' in the Journal of Molecular Biology (2025). Another notable publication is 'Computational framework for predicting evolutionary trajectories in microbial communities' in Bioinformatics (2024).";
-            sources = [
-                { title: "Publications - Jordan Lab Website", url: "#" },
-                { title: "Journal of Molecular Biology (2025), 42(3): 156-172", url: "#" }
-            ];
-        }
-        
-        // Team-related queries
-        else if (query.includes('team') || query.includes('member') || query.includes('people') || query.includes('staff')) {
-            answer = "The Jordan Laboratory team is led by Dr. James M. Jordan (Principal Investigator) and includes Dr. Amanda Chen (Research Scientist), Michael Rodriguez (Ph.D. Candidate), and Sarah Johnson (Lab Manager), among others. Our team has expertise in molecular biology, computational biology, and evolutionary dynamics.";
-            sources = [
-                { title: "Team Members - Jordan Lab Website", url: "#" },
-                { title: "Dr. James M. Jordan - Faculty Profile", url: "#" }
-            ];
-        }
-        
-        // Methods-related queries
-        else if (query.includes('method') || query.includes('technique') || query.includes('protocol')) {
-            answer = "Our laboratory employs a variety of cutting-edge methods including next-generation sequencing, computational modeling, and advanced microscopy techniques. We have developed several novel methodologies for analyzing genomic data and tracking evolutionary changes in microbial populations.";
-            sources = [
-                { title: "Methods & Resources - Jordan Lab Website", url: "#" },
-                { title: "Novel Methodologies for Biological Applications - Research Area", url: "#" }
-            ];
-        }
-        
-        // Resources-related queries
-        else if (query.includes('resource') || query.includes('equipment') || query.includes('facility')) {
-            answer = "The Jordan Laboratory is equipped with state-of-the-art facilities for molecular biology, genomics, and computational analysis. Our resources include next-generation sequencing platforms, high-performance computing clusters, specialized software packages, and custom algorithms for data analysis.";
-            sources = [
-                { title: "Laboratory Resources - Jordan Lab Website", url: "#" },
-                { title: "Equipment Specifications and Usage Guides", url: "#" }
-            ];
-        }
-        
-        // Contact-related queries
-        else if (query.includes('contact') || query.includes('email') || query.includes('phone') || query.includes('location')) {
-            answer = "The James M. Jordan Laboratory is located in the Biology Building, Room 4023, at Florida State University. You can contact Dr. Jordan by email at jjordan@fsu.edu or by phone at (850) 123-4567. The lab's mailing address is 319 Stadium Drive, Tallahassee, FL 32306.";
-            sources = [
-                { title: "Contact Information - Jordan Lab Website", url: "#" }
-            ];
-        }
-        
-        return {
-            answer: answer,
-            sources: sources
-        };
     }
     
-    // Add CSS for typing indicator
+    // Check API health on load
+    checkAPIHealth();
+    
+    // Add enhanced CSS for typing indicator and sources
     const style = document.createElement('style');
     style.textContent = `
         .typing-dots {
             display: flex;
             gap: 4px;
-            padding: 10px;
+            padding: 10px 0;
         }
         
         .typing-dots span {
@@ -215,6 +228,65 @@ document.addEventListener('DOMContentLoaded', function() {
         @keyframes typing-animation {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
+        }
+        
+        .sources {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .sources h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .sources ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .sources li {
+            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .sources li strong {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .sources li small {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+        
+        .chat-message.bot {
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-indicator {
+            opacity: 0.8;
+        }
+        
+        .typing-indicator p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
         }
     `;
     document.head.appendChild(style);
